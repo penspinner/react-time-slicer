@@ -1,6 +1,6 @@
 {
   "name": "react-time-slicer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Renders React nodes asynchronously.",
   "main": "dist/index.js",
   "scripts": {
