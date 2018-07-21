@@ -1,5 +1,5 @@
-import { Component } from "react";
-import PropTypes from "prop-types";
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 export default class TimeSlicer extends Component {
   idleCallbackId = null;
@@ -15,16 +15,17 @@ export default class TimeSlicer extends Component {
 
   componentDidUpdate() {
     if (this.idleCallbackId) this.cancelNewChildrenRender();
-    this.scheduleNewChildrenRender();
+
+    const { children } = this.props;
+
+    if (children !== this.previousChildren) this.scheduleNewChildrenRender(children);
   }
 
   componentWillUnmount() {
     if (this.idleCallbackId) this.cancelNewChildrenRender();
   }
 
-  scheduleNewChildrenRender() {
-    const { children } = this.props;
-
+  scheduleNewChildrenRender(children) {
     this.idleCallbackId = requestIdleCallback(() => {
       this.previousChildren = children;
       this.setState({});
