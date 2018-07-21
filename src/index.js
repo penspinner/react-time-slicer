@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class TimeSlicer extends Component {
-  idleCallbackId = null;
+class TimeSlicer extends Component {
+  scheduler = null;
 
   static propTypes = { children: PropTypes.node.isRequired };
 
@@ -14,7 +14,7 @@ export default class TimeSlicer extends Component {
   }
 
   componentDidUpdate() {
-    if (this.idleCallbackId) this.cancelNewChildrenRender();
+    if (this.scheduler) this.cancelNewChildrenRender();
 
     const { children } = this.props;
 
@@ -22,19 +22,7 @@ export default class TimeSlicer extends Component {
   }
 
   componentWillUnmount() {
-    if (this.idleCallbackId) this.cancelNewChildrenRender();
-  }
-
-  scheduleNewChildrenRender(children) {
-    this.idleCallbackId = requestIdleCallback(() => {
-      this.previousChildren = children;
-      this.setState({});
-    });
-  }
-
-  cancelNewChildrenRender() {
-    cancelIdleCallback(this.idleCallbackId);
-    this.idleCallbackId = null;
+    if (this.scheduler) this.cancelNewChildrenRender();
   }
 
   render() {
@@ -45,3 +33,33 @@ export default class TimeSlicer extends Component {
     return this.previousChildren;
   }
 }
+
+class IdleCallbackTimeSlicer extends TimeSlicer {
+  scheduleNewChildrenRender(children) {
+    this.scheduler = window.requestIdleCallback(() => {
+      this.previousChildren = children;
+      this.setState({});
+    });
+  }
+
+  cancelNewChildrenRender() {
+    window.cancelIdleCallback(this.scheduler);
+    this.scheduler = null;
+  }
+}
+
+class TimeoutTimeSlicer extends TimeSlicer {
+  scheduleNewChildrenRender(children) {
+    this.scheduler = window.setTimeout(() => {
+      this.previousChildren = children;
+      this.setState({});
+    }, 30);
+  }
+
+  cancelNewChildrenRender() {
+    window.clearTimeout(this.scheduler);
+    this.scheduler = null;
+  }
+}
+
+export default (window.requestIdleCallback ? IdleCallbackTimeSlicer : TimeoutTimeSlicer);
