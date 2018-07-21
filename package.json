@@ -1,12 +1,10 @@
 {
   "name": "react-time-slicer",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "Renders React nodes asynchronously.",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "transpile": "babel src -d dist --plugins=transform-class-properties --copy-files",
-    "webpack": "webpack"
+    "build": "webpack"
   },
   "keywords": [
     "react",
@@ -17,6 +15,10 @@
   ],
   "author": "Steven Liao",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Penspinner/react-time-slicer.git"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-loader": "^7.1.5",
