@@ -2,15 +2,27 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class TimeSlicer extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    initialPlaceholder: PropTypes.node,
+    shouldRenderSynchronouslyOnMount: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    initialPlaceholder: null,
+    shouldRenderSynchronouslyOnMount: true,
+  };
+
   scheduler = null;
 
-  static propTypes = { children: PropTypes.node.isRequired };
+  previousChildren = this.props.shouldRenderSynchronouslyOnMount
+    ? this.props.children
+    : this.props.initialPlaceholder;
 
   componentDidMount() {
-    const { children } = this.props;
+    const { children, shouldRenderSynchronouslyOnMount } = this.props;
 
-    this.mounted = true;
-    this.previousChildren = children;
+    if (!shouldRenderSynchronouslyOnMount) this.scheduleNewChildrenRender(children);
   }
 
   componentDidUpdate() {
@@ -26,10 +38,6 @@ class TimeSlicer extends Component {
   }
 
   render() {
-    const { children } = this.props;
-
-    if (!this.mounted) return children;
-
     return this.previousChildren;
   }
 }
