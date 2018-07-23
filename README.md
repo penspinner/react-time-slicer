@@ -6,11 +6,13 @@ This package was inspired by Dan Abramov's talk about React async rendering and 
 
 ### Prop Types
 
-| Property                         | Type | Required? | Default | Description                                                                                                                                           |
-| :------------------------------- | :--- | :-------: | :------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| children                         | Node |     ✓     |         | The React node that will be rendered (eg `<div />`).                                                                                                  |
-| initialPlaceholder               | Node |           | `null`  | The initial placeholder node renders only if property `shouldRenderSynchronouslyOnMount` is `false`.                                                  |
-| shouldRenderSynchronouslyOnMount | Node |           | `true`  | This property controls whether the children will be rendered synchronously on mount. Pass `false` to this if the initial render can take a long time. |
+| Property                         | Type    | Required? | Default | Description                                                                                                                                           |
+| :------------------------------- | :------ | :-------: | :------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| children                         | Node    |     ✓     |         | The React node that will be rendered (eg `<div />`).                                                                                                  |
+| initialPlaceholder               | Node    |           | `null`  | The initial placeholder node renders only if property `shouldRenderSynchronouslyOnMount` is `false`.                                                  |
+| shouldRenderSynchronouslyOnMount | Boolean |           | `true`  | This property controls whether the children will be rendered synchronously on mount. Pass `false` to this if the initial render can take a long time. |
+
+<br>
 
 ```js
 import React, { Component } from 'react';
