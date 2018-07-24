@@ -5,24 +5,24 @@ class TimeSlicer extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     initialPlaceholder: PropTypes.node,
-    shouldRenderSynchronouslyOnMount: PropTypes.bool,
+    shouldRenderImmediatelyOnMount: PropTypes.bool,
   };
 
   static defaultProps = {
     initialPlaceholder: null,
-    shouldRenderSynchronouslyOnMount: true,
+    shouldRenderImmediatelyOnMount: true,
   };
 
   scheduler = null;
 
-  previousChildren = this.props.shouldRenderSynchronouslyOnMount
+  previousChildren = this.props.shouldRenderImmediatelyOnMount
     ? this.props.children
     : this.props.initialPlaceholder;
 
   componentDidMount() {
-    const { children, shouldRenderSynchronouslyOnMount } = this.props;
+    const { children, shouldRenderImmediatelyOnMount } = this.props;
 
-    if (!shouldRenderSynchronouslyOnMount) this.scheduleNewChildrenRender(children);
+    if (!shouldRenderImmediatelyOnMount) this.scheduleNewChildrenRender(children);
   }
 
   componentDidUpdate() {
