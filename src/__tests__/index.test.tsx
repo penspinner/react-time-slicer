@@ -1,7 +1,7 @@
 import React from 'react';
 import { cleanup, render } from '@testing-library/react';
 
-import TimeSlicer from '../';
+import TimeSlicer from '..';
 
 afterEach(cleanup);
 
@@ -22,13 +22,13 @@ describe('with shouldRenderImmediatelyOnMount false', () => {
     expect(childNode).toBeDefined();
   });
 
-  test('should render children in the background', () => {
+  test('should render children in the background', async () => {
     const { getByText } = render(
       <TimeSlicer initialPlaceholder="Loading..." shouldRenderImmediatelyOnMount={false}>
         Hello
       </TimeSlicer>,
     );
-    return new Promise(resolve => {
+    await new Promise(resolve => {
       setTimeout(() => {
         const childNode = getByText('Hello');
         expect(childNode).toBeDefined();
