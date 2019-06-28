@@ -1,17 +1,21 @@
-import path from 'path';
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript2';
 
-const external = id => !id.startsWith('.') && !path.isAbsolute(id);
+import pkg from './package.json';
 
 module.exports = [
   {
-    external,
+    external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
     input: 'src/index.tsx',
-    output: {
-      file: 'dist/index.js',
-      format: 'umd',
-      name: 'react-time-slicer',
-    },
+    output: [
+      {
+        file: pkg.main,
+        format: 'cjs',
+      },
+      {
+        file: pkg.module,
+        format: 'esm',
+      },
+    ],
     plugins: [typescript()],
   },
 ];

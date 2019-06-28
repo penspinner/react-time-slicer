@@ -2,14 +2,15 @@
   "name": "react-time-slicer",
   "version": "1.0.1",
   "description": "Renders React nodes asynchronously.",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "test": "jest",
-    "transpile": "rollup -c",
-    "tpub": "npm run transpile && npm publish"
+    "rollup": "rollup -c",
+    "test": "jest"
   },
   "keywords": [
     "react",
@@ -40,7 +41,7 @@
     "babel-loader": "^8.0.6",
     "jest": "^24.8.0",
     "react-dom": "^16.8.6",
-    "rollup-plugin-typescript": "^1.0.1",
+    "rollup-plugin-typescript2": "^0.21.2",
     "ts-jest": "^24.0.2",
     "typescript": "^3.5.2",
     "webpack": "^4.35.0",
