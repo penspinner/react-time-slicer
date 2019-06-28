@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "rollup": "rollup -c",
+    "prepublishOnly": "npm run rollup",
     "test": "jest"
   },
   "keywords": [
