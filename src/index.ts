@@ -1,29 +1,14 @@
 import { ReactNode, useEffect, useState } from 'react';
 
-type RequestIdleCallbackHandle = any;
-type RequestIdleCallbackOptions = {
-  timeout: number;
-};
-type RequestIdleCallbackDeadline = {
-  readonly didTimeout: boolean;
-  timeRemaining: () => number;
-};
+import globalObject from './globalObject';
 
-declare global {
-  interface Window {
-    requestIdleCallback: (
-      callback: (deadline: RequestIdleCallbackDeadline) => void,
-      options?: RequestIdleCallbackOptions,
-    ) => RequestIdleCallbackHandle;
-    cancelIdleCallback: (handle: RequestIdleCallbackHandle) => void;
-  }
-}
+const schedule = globalObject.requestIdleCallback
+  ? globalObject.requestIdleCallback
+  : (handler: TimerHandler) => globalObject.setTimeout(handler, 30);
 
-const schedule = window.requestIdleCallback
-  ? window.requestIdleCallback
-  : (handler: TimerHandler) => window.setTimeout(handler, 30);
-
-const cancelSchedule = window.cancelIdleCallback ? window.cancelIdleCallback : window.clearTimeout;
+const cancelSchedule = globalObject.cancelIdleCallback
+  ? globalObject.cancelIdleCallback
+  : globalObject.clearTimeout;
 
 interface ITimeSlicerProps {
   children: ReactNode;
