@@ -5,7 +5,7 @@ import pkg from './package.json';
 module.exports = [
   {
     external: [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})],
-    input: 'src/index.tsx',
+    input: 'src/index.ts',
     output: [
       {
         file: pkg.main,
