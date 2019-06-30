@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { FC, ReactElement, ReactNode, useEffect, useState } from 'react';
 
 import globalObject from './globalObject';
 
@@ -10,11 +10,7 @@ const cancelSchedule = globalObject.cancelIdleCallback
   ? globalObject.cancelIdleCallback
   : globalObject.clearTimeout;
 
-interface ITimeSlicerProps {
-  children: ReactNode;
-}
-
-const TimeSlicer = ({ children }: ITimeSlicerProps) => {
+const TimeSlicer: FC = ({ children }) => {
   const [previousChildren, setPreviousChildren] = useState<ReactNode>(null);
 
   useEffect(() => {
@@ -25,7 +21,8 @@ const TimeSlicer = ({ children }: ITimeSlicerProps) => {
     return () => cancelSchedule(scheduler);
   });
 
-  return previousChildren;
+  // https://stackoverflow.com/questions/54905376/type-error-jsx-element-type-null-undefined-is-not-a-constructor-functi
+  return previousChildren as (ReactElement | null);
 };
 
 export default TimeSlicer;

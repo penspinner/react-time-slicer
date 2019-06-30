@@ -10,7 +10,7 @@ This package was inspired by Dan Abramov's talk about React async rendering and 
 
 | Property | Type      | Required? | Default | Description                                          |
 | :------- | :-------- | :-------: | :------ | :--------------------------------------------------- |
-| children | ReactNode |     ✓     |         | The React node that will be rendered (eg `<div />`). |
+| children | ReactNode |           | `null`  | The React node that will be rendered (eg `<div />`). |
 
 <br>
 
